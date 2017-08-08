@@ -192,6 +192,8 @@
     
     self.contentMode = UIViewContentModeRedraw;
     
+    self.minimumSegmentWidth =0.0;
+    
     _enableSelectEffectForSingleSegment = NO;
     _centerWhenNecessary = YES;
     _makeHorizonSpaceEqualEqualityWhenJustHasTwoSegments = YES;
@@ -796,6 +798,7 @@
         
         [self.sectionTitles enumerateObjectsUsingBlock:^(id titleString, NSUInteger idx, BOOL *stop) {
             CGFloat stringWidth = [self measureTitleAtIndex:idx].width + self.segmentEdgeInset.left + self.segmentEdgeInset.right;
+            stringWidth= stringWidth<self.minimumSegmentWidth?self.minimumSegmentWidth:stringWidth;
             [mutableSegmentWidths addObject:[NSNumber numberWithFloat:stringWidth]];
         }];
         self.segmentWidthsArray = [mutableSegmentWidths copy];

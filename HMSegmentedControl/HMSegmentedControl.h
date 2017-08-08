@@ -125,6 +125,14 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 @property (nonatomic, assign) CGFloat verticalDividerWidth;
 
 /**
+ Minimum width of segments segments that is used when `segmentWidthStyle` is set to HMSegmentedControlSegmentWidthStyleDynamic.
+ 
+ Default is `0.0f`
+ */
+@property (nonatomic, assign) CGFloat minimumSegmentWidth;
+
+
+/**
  Specifies the style of the control
  
  Default is `HMSegmentedControlTypeText`
