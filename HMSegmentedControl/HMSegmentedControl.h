@@ -236,6 +236,36 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  Default is YES. Set to NO to disable animation during user selection.
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Following properties, just work for self.type == HMSegmentedControlTypeText && self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
+
+/**
+ Defaul is NO. Set to YES if want the indicator animate when scroll the related scroll view.
+ If set to YES. You must set the relatedScrollView property and call scrollViewDidScroll: method when the releated UIScrollView scroll
+ */
+@property(nonatomic) BOOL shouldAnimateDuringUserScrollTheRelatedScrollView;
+
+/**
+ The related UIScrollView.
+ */
+@property (nonatomic, weak) UIScrollView *relatedScrollView;
+
+/**
+ When just has two segments. Make the horizon space between the two segments and margin to be equal.
+ Default is YES. Set to No if you don't want this effect.
+ */
+@property (nonatomic) BOOL makeHorizonSpaceEqualEqualityWhenJustHasTwoSegments;
+
+@property (nonatomic, copy) DoubleClickIndexBlock doubleClickIndexBlock;
+
+@property (nonatomic, strong) UIImage *leftMaskImage;
+@property (nonatomic, strong) UIImage *rightMaskImage;
+
+/**
+ Call this when the related UIScrollView did scroll.
+ */
+- (void)scrollViewDidScroll:(UIScrollView *)relatedScrollView;
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
 - (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
@@ -243,5 +273,8 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
+
+- (void)updateSegmentsRects;
+- (CGFloat)totalSegmentedControlWidth;
 
 @end
