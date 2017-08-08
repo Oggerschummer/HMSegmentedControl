@@ -52,9 +52,9 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
 
 @interface HMSegmentedControl : UIControl
 
-@property (nonatomic, strong) NSArray *sectionTitles;
-@property (nonatomic, strong) NSArray *sectionImages;
-@property (nonatomic, strong) NSArray *sectionSelectedImages;
+@property (nonatomic, strong) NSArray<NSString *> *sectionTitles;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionImages;
+@property (nonatomic, strong) NSArray<UIImage *> *sectionSelectedImages;
 
 /**
  Provide a block to be executed when selected index is changed.
@@ -95,6 +95,13 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  Default is `R:52, G:181, B:229`
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor UI_APPEARANCE_SELECTOR;
+
+/**
+ Color for the selection indicator box
+ 
+ Default is selectionIndicatorColor
+ */
+@property (nonatomic, strong) UIColor *selectionIndicatorBoxColor UI_APPEARANCE_SELECTOR;
 
 /**
  Color for the vertical divider between segments.
@@ -222,42 +229,11 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
  */
 @property (nonatomic) BOOL shouldAnimateUserSelection;
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-// Following properties, just work for self.type == HMSegmentedControlTypeText && self.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
-
-/**
- Defaul is NO. Set to YES if want the indicator animate when scroll the related scroll view.
- If set to YES. You must set the relatedScrollView property and call scrollViewDidScroll: method when the releated UIScrollView scroll
- */
-@property(nonatomic) BOOL shouldAnimateDuringUserScrollTheRelatedScrollView;
-
-/**
- The related UIScrollView.
- */
-@property (nonatomic, weak) UIScrollView *relatedScrollView;
-
-/**
- When just has two segments. Make the horizon space between the two segments and margin to be equal.
- Default is YES. Set to No if you don't want this effect.
- */
-@property (nonatomic) BOOL makeHorizonSpaceEqualEqualityWhenJustHasTwoSegments;
-
-@property (nonatomic, copy) DoubleClickIndexBlock doubleClickIndexBlock;
-
-/**
- Call this when the related UIScrollView did scroll.
- */
-- (void)scrollViewDidScroll:(UIScrollView *)relatedScrollView;
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-- (id)initWithSectionTitles:(NSArray *)sectiontitles;
-- (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
-- (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
+- (id)initWithSectionTitles:(NSArray<NSString *> *)sectiontitles;
+- (id)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages;
+- (instancetype)initWithSectionImages:(NSArray<UIImage *> *)sectionImages sectionSelectedImages:(NSArray<UIImage *> *)sectionSelectedImages titlesForSections:(NSArray<NSString *> *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
-
-- (void)updateSegmentsRects;
-- (CGFloat)totalSegmentedControlWidth;
 
 @end
